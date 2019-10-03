@@ -37,13 +37,13 @@
 
 # COMMAND ----------
 
-# (spark.read
-#   .format("csv")
-#   .option("header", "true")
-#   .load("/mnt/training/enb/commonfiles/geo_for_lookup.csv")
-#   .write
-#   .mode("overwrite")
-#   .saveAsTable("geo_for_lookup_csv"))
+(spark.read
+  .format("csv")
+  .option("header", "true")
+  .load("/mnt/training/enb/commonfiles/geo_for_lookup.csv")
+  .write
+  .mode("overwrite")
+  .saveAsTable("geo_for_lookup_csv"))
 
 # COMMAND ----------
 
@@ -143,7 +143,11 @@ from pyspark.sql.types import *
 # COMMAND ----------
 
 # TODO
-Your Python code here
+csvFileDf = (spark.read
+  .format("csv")
+  .option("header", "true")
+  .load("/mnt/training/enb/commonfiles/geo_for_lookup.csv"))
+display(csvFileDf)
 
 # COMMAND ----------
 
@@ -177,7 +181,7 @@ Your Python code here
 # COMMAND ----------
 
 # TODO
-Your Python Code to show extended table details here
+display(spark.sql('DESCRIBE EXTENDED geo_for_lookup_csv'))
 
 # COMMAND ----------
 
@@ -200,14 +204,13 @@ Your Python Code to show extended table details here
 # COMMAND ----------
 
 # TODO
-
-Your Code to read the data into a Dataframe here
+tableDf = spark.read.table('geo_for_lookup_csv')
 
 # COMMAND ----------
 
 # TODO
-
-your code to display the dataframe here
+# your code to display the dataframe here
+display(tableDf)
 
 # COMMAND ----------
 
@@ -252,8 +255,12 @@ your code to display the dataframe here
 
 # COMMAND ----------
 
-# TODO
-Your Code here
+# MAGIC %python
+# MAGIC print(userhome)
+# MAGIC filepath = "{}/geo_for_lookup".format(userhome)
+# MAGIC print(filepath)
+# MAGIC #dataframe.write.format("parquet")
+# MAGIC tableDf.write.parquet(filepath)
 
 # COMMAND ----------
 
